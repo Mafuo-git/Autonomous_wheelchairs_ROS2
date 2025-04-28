@@ -1,0 +1,92 @@
+VERSION ""
+
+
+NS_ :
+
+BS_:
+
+BU_: Vector__XXX
+
+BO_ 256 id_100_Consigne: 8 Vector__XXX
+SG_ Cons_CAN_axe_X : 7|8@0+ (1,-100) [-100|155] "%" Vector__XXX
+SG_ Cons_CAN_axe_Y : 15|8@0+ (1,-100) [-100|155] "%" Vector__XXX
+SG_ Activation_Cons_CAN_axe_X : 16|1@0+ (1,0) [0|1] "-" Vector__XXX
+SG_ Activation_Cons_CAN_axe_Y : 17|1@0+ (1,0) [0|1] "" Vector__XXX
+
+
+BO_ 272 id_110_Diag: 8 Vector__XXX
+SG_ Position_joystick_Y : 7|12@0+ (1,0) [0|4095] "mV" Vector__XXX
+SG_ Position_joystick_X : 11|12@0+ (1,0) [0|4095] "mV" Vector__XXX
+SG_ Cons_Y_Robot : 29|1@0+ (1,0) [0|1] "" Vector__XXX
+SG_ Cons_X_Robot : 30|1@0+ (1,0) [0|1] "" Vector__XXX
+SG_ id100_trame_valide : 31|1@0+ (1,0) [0|1] "" Vector__XXX
+SG_ Mesure_tension_24V : 28|12@0+ (0.01,0) [0|40.95] "V" Vector__XXX
+SG_ Mesure_tension_12V : 32|12@0+ (0.01,0) [0|40.95] "V" Vector__XXX
+SG_ Mesure_tension_19V : 52|12@0+ (0.01,0) [0|40.95] "V" Vector__XXX
+SG_ Desactivation_robot_timeout_CAN : 56|1@0+ (1,0) [0|1] "" Vector__XXX
+
+
+BO_ 273 id_111_Diag: 8 Vector__XXX
+SG_ Vitesse_roue_gauche : 7|16@0+ (0.1,0) [0|6553.5] "tr/min" Vector__XXX
+SG_ Vitesse_roue_droite : 23|16@0+ (0.1,0) [0|6553.5] "tr/min" Vector__XXX
+SG_ Dft_mini_capteur_joystick_axe_X : 32|1@0+ (1,0) [0|1] "-" Vector__XXX
+SG_ Dft_maxi_capteur_joystick_axe_X : 33|1@0+ (1,0) [0|1] "-" Vector__XXX
+SG_ Dft_mini_capteur_joystick_axe_Y : 34|1@0+ (1,0) [0|1] "-" Vector__XXX
+SG_ Dft_maxi_capteur_joystick_axe_Y : 35|1@0+ (1,0) [0|1] "-" Vector__XXX
+SG_ Direction_roue_gauche : 36|1@0+ (1,0) [0|1] "" Vector__XXX
+SG_ Direction_roue_droite : 37|1@0+ (1,0) [0|1] "" Vector__XXX
+
+
+CM_ BO_ 256 "PC Robotisation vers boitier FH";
+CM_ SG_ 256 Cons_CAN_axe_X "100% marche avant, -100% marche arrière";
+CM_ SG_ 256 Cons_CAN_axe_Y "100% gauche, -100% droite";
+CM_ SG_ 256 Activation_Cons_CAN_axe_X "Active la commande du fauteuil par CAN sur l'axe X";
+CM_ SG_ 256 Activation_Cons_CAN_axe_Y "Active la commande du fauteuil par CAN sur l'axe Y";
+CM_ BO_ 272 "De boitier FH";
+CM_ SG_ 272 Position_joystick_Y "Mesure de la position Y du joystick en mV";
+CM_ SG_ 272 Position_joystick_X "Mesure de la position X du joystick en mV";
+CM_ SG_ 272 Cons_Y_Robot "Mode robot sur axe Y activé (Activation_Cons_CAN_axe_Y=1 & id100_trame_valide=1)";
+CM_ SG_ 272 Cons_X_Robot "Mode robot sur axe X activé (Activation_Cons_CAN_axe_X=1 & id100_trame_valide=1)";
+CM_ SG_ 272 id100_trame_valide "Réception trame CAN valide si = 1 (timeout=50ms)";
+CM_ SG_ 272 Mesure_tension_24V "Mesure de la tension de la batterie fauteuil";
+CM_ SG_ 272 Mesure_tension_12V "Mesure de la tension de sortie du DCDC 24V/12V";
+CM_ SG_ 272 Mesure_tension_19V "Mesure de la tension de sortie du DCDC 24V/19V";
+CM_ SG_ 272 Desactivation_robot_timeout_CAN "Mode robot désactivé sur timeout id100 (reactivation nécessaire via les booléens Activation_Cons_CAN_axe_X & Y)";
+CM_ BO_ 273 "De boitier FH";
+CM_ SG_ 273 Direction_roue_gauche "1=marche avant  0=marche arrière";
+CM_ SG_ 273 Direction_roue_droite "1=marche avant  0=marche arrière";
+
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_ SG_  "GenSigStartValue" FLOAT -3.4E+038 3.4E+038;
+
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+
+BA_ "GenMsgCycleTime" BO_ 256 2;
+BA_ "GenMsgCycleTime" BO_ 272 2;
+BA_ "GenMsgCycleTime" BO_ 273 2;
+
+BA_ "GenSigStartValue" SG_ 256 Cons_CAN_axe_X 100;
+BA_ "GenSigStartValue" SG_ 256 Cons_CAN_axe_Y 100;
+BA_ "GenSigStartValue" SG_ 256 Activation_Cons_CAN_axe_X 0;
+BA_ "GenSigStartValue" SG_ 256 Activation_Cons_CAN_axe_Y 0;
+BA_ "GenSigStartValue" SG_ 272 Position_joystick_Y 0;
+BA_ "GenSigStartValue" SG_ 272 Position_joystick_X 0;
+BA_ "GenSigStartValue" SG_ 272 Cons_Y_Robot 0;
+BA_ "GenSigStartValue" SG_ 272 Cons_X_Robot 0;
+BA_ "GenSigStartValue" SG_ 272 id100_trame_valide 0;
+BA_ "GenSigStartValue" SG_ 272 Mesure_tension_24V 0;
+BA_ "GenSigStartValue" SG_ 272 Mesure_tension_12V 0;
+BA_ "GenSigStartValue" SG_ 272 Mesure_tension_19V 0;
+BA_ "GenSigStartValue" SG_ 272 Desactivation_robot_timeout_CAN 0;
+BA_ "GenSigStartValue" SG_ 273 Vitesse_roue_gauche 0;
+BA_ "GenSigStartValue" SG_ 273 Vitesse_roue_droite 0;
+BA_ "GenSigStartValue" SG_ 273 Dft_mini_capteur_joystick_axe_X 0;
+BA_ "GenSigStartValue" SG_ 273 Dft_maxi_capteur_joystick_axe_X 0;
+BA_ "GenSigStartValue" SG_ 273 Dft_mini_capteur_joystick_axe_Y 0;
+BA_ "GenSigStartValue" SG_ 273 Dft_maxi_capteur_joystick_axe_Y 0;
+BA_ "GenSigStartValue" SG_ 273 Direction_roue_gauche 0;
+BA_ "GenSigStartValue" SG_ 273 Direction_roue_droite 0;
+
+
+
